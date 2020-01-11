@@ -1,0 +1,6 @@
+.box {
+    border: solid gray 3px;
+    border-radius: 5px;
+    padding: 5px;
+    height: 100%;
+}

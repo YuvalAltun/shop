@@ -1,0 +1,62 @@
+<div class="container">
+    step 2
+    <form [formGroup]="profileForm">
+        <div class="form-group">
+          <label for="city">Select a city</label>
+          <select class="form-control" id="city" formControlName="city">
+            <option>Haifa</option>
+            <option>Tel Aviv</option>
+            <option>Jerusalem</option>
+            <option>Hadera</option>
+            <option>Carmiel</option>
+            <option>Beer Sheva</option>
+            <option>Ashdod</option>
+            <option>Ashkelon</option>
+            <option>Ako</option>
+            <option>Naharia</option>
+          </select>
+          <div *ngIf="profileForm.controls.city.invalid && (profileForm.controls.city.dirty || profileForm.controls.city.touched)" class="alert alert-danger">
+
+            <div *ngIf="profileForm.controls.city.errors.required">
+                city is required.
+            </div>
+        </div>
+        </div>
+        <div class="form-group">
+            <label for="street">Street</label>
+            <input type="text" formControlName="street" required class="form-control" id="street" 
+                placeholder="Maon">
+            <div *ngIf="profileForm.controls.street.invalid && (profileForm.controls.street.dirty || profileForm.controls.street.touched)" class="alert alert-danger">
+
+                <div *ngIf="profileForm.controls.street.errors.required">
+                    street is required.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" formControlName="name" required class="form-control" id="name" 
+                placeholder="ziv">
+            <div *ngIf="profileForm.controls.name.invalid && (profileForm.controls.name.dirty || profileForm.controls.name.touched)" class="alert alert-danger">
+
+                <div *ngIf="profileForm.controls.name.errors.required">
+                    name is required.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="sureName">Id</label>
+            <input type="text" formControlName="sureName" required class="form-control" id="sureName" 
+                placeholder="Shilgi">
+            <div *ngIf="profileForm.controls.sureName.invalid && (profileForm.controls.sureName.dirty || profileForm.controls.sureName.touched)" class="alert alert-danger">
+
+                <div *ngIf="profileForm.controls.sureName.errors.required">
+                    sure name is required.
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-info" [disabled]="profileForm.invalid" (click)="submit()">Submit</button>
+   
+      </form>
+</div>

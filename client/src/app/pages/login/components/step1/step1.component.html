@@ -1,0 +1,59 @@
+<div class="container box">
+    step 1
+    <form [formGroup]="profileForm">
+        <div class="form-group">
+            <label for="inputId">Id</label>
+            <input type="number" formControlName="id" required class="form-control" id="inputId" 
+                placeholder="302659602">
+            <div *ngIf="profileForm.controls.id.invalid && (profileForm.controls.id.dirty || profileForm.controls.id.touched)" class="alert alert-danger">
+
+                <div *ngIf="profileForm.controls.id.errors.required">
+                    id is required.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail">Email address</label>
+            <input type="email" formControlName="email" required class="form-control" id="inputEmail"
+                placeholder="name@example.com">
+                <div *ngIf="profileForm.controls.email.invalid && (profileForm.controls.email.dirty || profileForm.controls.email.touched)" class="alert alert-danger">
+
+                    <div *ngIf="profileForm.controls.email.errors.required">
+                        email is required.
+                    </div>
+                    <div *ngIf="profileForm.controls.email.errors.email">
+                        please enter a valid email address
+                    </div>
+                </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword">Password</label>
+            <input type="password" formControlName="password" required class="form-control" id="inputPassword"
+                placeholder="Adkjg#$fg">
+                <div *ngIf="profileForm.controls.password.invalid && (profileForm.controls.password.dirty || profileForm.controls.password.touched)" class="alert alert-danger">
+
+                    <div *ngIf="profileForm.controls.password.errors.required">
+                        password is required.
+                    </div>
+                    <div *ngIf="profileForm.controls.password.errors.minlength">
+                        min length is 6.
+                    </div>
+                </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPasswordConfirmed">Password Confirmed</label>
+            <input type="password" formControlName="passwordConfirmed" required class="form-control"
+                id="inputPasswordConfirmed" placeholder="Adkjg#$fg">
+                <div *ngIf="profileForm.controls.passwordConfirmed.invalid && (profileForm.controls.passwordConfirmed.dirty || profileForm.controls.passwordConfirmed.touched)" class="alert alert-danger">
+
+                    <div *ngIf="profileForm.controls.passwordConfirmed.errors.required">
+                        password confirmation is required.
+                    </div>
+                </div>
+                <div *ngIf="profileForm.controls.passwordConfirmed.value !== profileForm.controls.password.value && (profileForm.controls.passwordConfirmed.dirty || profileForm.controls.passwordConfirmed.touched)" class="alert alert-danger">
+                        password confirmation must be equal to password.
+                </div>
+        </div>
+        <button type="submit" class="btn btn-info" [disabled]="profileForm.invalid || profileForm.controls.passwordConfirmed.value !== profileForm.controls.password.value" (click)="next()">next</button>
+    </form>
+</div>
