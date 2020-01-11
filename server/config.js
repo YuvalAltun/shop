@@ -1,11 +1,15 @@
 module.exports = {
+    AccessControlAllowOrigin: '*',
+    AccessControlAllowHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+    AccessControlAllowMethods: 'PUT, POST, PATCH, DELETE, GET',
     DB: {
-DB_HOST: 'localhost', 
-DB_NAME: 'iRYnVQoNnq',
-DB_USER: 'iRYnVQoNnq', 
-DB_PASS: 'IqxQekJzox',
-DB_SERVER: 'remotemysql.com',
-DB_PORT: '3306'
+        DB_HOST: 'localhost',
+        DB_NAME: 'store',
+        DB_USER: 'storeAdmin',
+        DB_PASS: 'hkh98yKJG98KJ',
+        DB_SERVER: 'localhost',
+        DB_PORT: '3306',
+        POOL_CONNECTION_LIMIT: 50
     },
     JWT_SEC: 'secret'
 }
@@ -22,3 +26,10 @@ DB_PORT: '3306'
 // Port: 3306
 
 // managing portal: https://remotemysql.com/phpmyadmin/
+
+/**
+ * yuval local mysql
+ * user dbAdmin
+ * pass hkh98yKJG98KJ
+ * windows service name MySQL80
+ * */

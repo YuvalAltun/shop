@@ -8,13 +8,16 @@ const createError = require('http-errors');
 
 exports.signup = async (req, res, next) => {
     try{
-        const {firstName, sureName, email, password, city, street, identification} = req.body;
-        if(!(firstName && sureName && email && password && city && street && identification))
+        const {name, sureName, email, password, city, street, id} = req.body;
+        if(!(name && sureName && email && password && city && street && id))
             return next(createError(400, 'bad input missing sign up property'));
 
+        const idResult =await db.query(`select 1 from users where id = '${id}'`);
+        if( idResult.length)
+            return next(createError(400, 'id already exists in the system'));
         const encrypted_pass = bcrypt.hashSync(req.body.password, 10);
-        var sql = `INSERT INTO users(firstName, sureName, email, password, city, street, identification) VALUES ('${firstName}', '${sureName}', '${email}', '${encrypted_pass}', '${city}', '${street}', '${identification}')`;
-        const result = db.query(sql);
+        var sql = `INSERT INTO users(firstName, surname, email, password, city, street, id, type) VALUES ('${name}', '${sureName}', '${email}', '${encrypted_pass}', '${city}', '${street}', '${id}', 'user')`;
+        const result = await db.query(sql);
         return res.status(201).json({message: 'user created successfuly'});
     } catch(error) {
         return next(createError(400, error.message));
@@ -22,10 +25,10 @@ exports.signup = async (req, res, next) => {
 };
 
 exports.login = async (req, res, next) => {
-    const username = req.body.userName;
+    try{
+    const email = req.body.email;
     const password = req.body.password;
-    console.log(username, password);
-    connection.query(`select * from users where username = '${username}'`, (err,users) => {
+    db.query(`select * from users where email = '${email}'`, (err,users) => {
         if (err) 
             return next({status: 401, message: 'bad input'});
         const result = bcrypt.compareSync(password, users[0].password);
@@ -33,7 +36,7 @@ exports.login = async (req, res, next) => {
             return next({status: 401, message: 'wrong password'});
     
         const JWT_KEY = config.JWT_SEC;
-        jwt.sign({ user: users[0].username, role: users[0].role, id: users[0].id  }, JWT_KEY, (err , token) => {
+        jwt.sign({ user: users[0].email, type: users[0].type, id: users[0].id, firtsName: users[0].firstName  }, JWT_KEY, (err , token) => {
             const user = users[0];
             delete user.password;
             user.token = token;
@@ -41,6 +44,9 @@ exports.login = async (req, res, next) => {
         });
 
     })
+} catch(err) {
+
+}
 
 };
 
