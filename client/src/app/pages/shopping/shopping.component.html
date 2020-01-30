@@ -1,1 +1,60 @@
-<p>shopping works!</p>
+<div class="container-fluid">
+    <div id="mySidebar" #mySidebar class="sidebar">
+      <button  class="openbtn" #toggleButton (click)="toggleSidebar()">&#9776; My Cart</button>
+      <app-items-list  [cart]="$cart | async" (deleteRow)="removeItem($event)"></app-items-list>
+      </div>
+      
+      <div id="main" #main>
+        <app-search-bar (search)="searchProducts($event)" (category)="addCategory($event)" [isAdmin]="false">
+        </app-search-bar>
+        <button *ngIf="!opened" class="openbtn" #toggleButton (click)="toggleSidebar()">&#9776; My Cart</button>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="col-md-12">
+                        <app-button-filter (filterEvent)="filterProducts($event)" [categories]="$categories | async" [searchFlag]="searchFlag"></app-button-filter>
+                        <app-products-container (product)="currentProduct = $event; chooseProduct($event)" [products]="$products | async"></app-products-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+
+</div>
+
+
+
+
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Add to cart</h4>
+    </div>
+    <div class="modal-body">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" [src]="currentProduct.image" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{currentProduct.name}}</h5>
+          <p class="card-text">{{currentProduct.price}}</p>
+          <form [formGroup]="profileForm">
+            <div class="form-group">
+              <label for="amount">Amount</label>
+              <div class="input-group">
+                <input id="amount" class="form-control" formControlName="amount">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="modal.dismiss('Cross click')">cancel</button>
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    </div>
+  </ng-template>
+
+  

@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../../services/login.service';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -15,21 +14,14 @@ export class Step2Component implements OnInit {
     city: ['', [Validators.required]],
     street: ['', [Validators.required]],
   });
-  constructor(
-    public loginService: LoginService,
-    private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router) { }
+  @Output() finish = new EventEmitter<any>();
+  constructor( private fb: FormBuilder ) { }
 
   ngOnInit() {
   }
 
-  submit() {
-    this.loginService.setLoginData(this.profileForm.value);
-    this.loginService.submit().subscribe(
-      success => this.router.navigate(['/']),
-      error => alert(error)
-    );
+  submitForm() {
+    this.finish.emit(this.profileForm.value);
   }
 
 }

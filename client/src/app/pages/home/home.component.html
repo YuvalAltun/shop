@@ -1,13 +1,16 @@
 <div class="container box">
-    <div class="row">
-      <div class="col">
-        <app-shopper-info></app-shopper-info>
-      </div>
-      <div class="col">
-        <app-store-info></app-store-info>
-      </div>
-      <div class="col">
-        <app-shopper-status></app-shopper-status>
-      </div>
+  <div class="row">
+    <div class="col">
+      <app-shopper-info (loginEvent)="login($event)" (logoutEvent)="logout()" (startShopingEvent)="startShoping()"
+        [isAuthenticated]="isAuthenticated$ | async" [cart]="cart$ | async"></app-shopper-info>
+    </div>
+    <div class="col">
+      <app-store-info></app-store-info>
+    </div>
+    <div class="col">
+      <app-shopper-status [products]="products$ | async" [isAuthenticated]="isAuthenticated$ | async"
+        [cart]="cart$ | async">
+      </app-shopper-status>
     </div>
   </div>
+</div>

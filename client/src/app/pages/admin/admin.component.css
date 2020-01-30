@@ -1,0 +1,10 @@
+
+
+.image-card {
+    max-height: 300px;
+    max-width: 200px;
+}
+
+img {
+    max-height: 150px;
+}

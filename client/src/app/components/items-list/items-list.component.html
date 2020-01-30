@@ -1,0 +1,34 @@
+<div class="container" *ngIf="cart">
+    <button *ngIf="!isEditable" (click)="shopingClick()">back to shopping</button>
+<table class="table table-striped" >
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">name</th>
+      <th scope="col">amount</th>
+      <th scope="col">price</th>
+      <th scope="col">total</th>
+      <th *ngIf="isEditable" scope="col">action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of cart.items; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ item.productName }}</td>
+      <td>{{ item.amount }}</td>
+      <td>{{ item.price | number }}</td>
+      <td>{{ (item.price * item.amount)| number }}</td>
+      <td *ngIf="isEditable"><button (click)="removeItem(item)">X</button></td>
+    </tr>
+    </tbody>
+  </table>
+<div class="row">
+    <div class="col-md-6">
+        total: {{cart.totalPrice}}
+        </div>
+        <div class="col-md-6">
+            <button *ngIf="isEditable" (click)="orderClick()">Go To Order</button>
+        </div>
+        </div>
+</div>
+  <div *ngIf="!cart">no cart available</div>

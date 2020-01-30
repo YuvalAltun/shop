@@ -1,0 +1,66 @@
+<div class="container">
+    <form [formGroup]="profileForm">
+        <div class="form-group">
+          <label for="city">Select a city</label>
+          <select class="form-control" id="city" formControlName="city">
+            <option>Haifa</option>
+            <option>Tel Aviv</option>
+            <option>Jerusalem</option>
+            <option>Hadera</option>
+            <option>Carmiel</option>
+            <option>Beer Sheva</option>
+            <option>Ashdod</option>
+            <option>Ashkelon</option>
+            <option>Ako</option>
+            <option>Naharia</option>
+          </select>
+          <div *ngIf="profileForm.controls.city.invalid && (profileForm.controls.city.dirty || profileForm.controls.city.touched)" class="alert alert-danger">
+
+            <div *ngIf="profileForm.controls.city.errors.required">
+                city is required.
+            </div>
+        </div>
+        </div>
+        <div class="form-group">
+            <label for="street">Street</label>
+            <input type="text" formControlName="street" required class="form-control" id="street" 
+                placeholder="Maon">
+            <div *ngIf="profileForm.controls.street.invalid && (profileForm.controls.street.dirty || profileForm.controls.street.touched)" class="alert alert-danger">
+
+                <div *ngIf="profileForm.controls.street.errors.required">
+                    street is required.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="deliveryDate">Delivery Date</label>
+            <input type="text"
+        id="deliveryDate"
+        class="form-control"
+        formControlName="deliveryDate"
+        ngbDatepicker
+        #incorporatedDatePicker="ngbDatepicker"
+        (click)="incorporatedDatePicker.toggle()"
+        readonly>
+            <div *ngIf="profileForm.controls.deliveryDate.invalid && (profileForm.controls.deliveryDate.dirty || profileForm.controls.deliveryDate.touched)" class="alert alert-danger">
+
+                <div *ngIf="profileForm.controls.name.errors.required">
+                    delivery date is required.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="creditCard">Credit Card Number</label>
+            <input type="text" formControlName="creditCard" required class="form-control" id="creditCard">
+            <div *ngIf="profileForm.controls.creditCard.invalid && (profileForm.controls.creditCard.dirty || profileForm.controls.creditCard.touched)" class="alert alert-danger">
+
+                <div *ngIf="profileForm.controls.creditCard.errors.required">
+                    credit card number is required.
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-info" [disabled]="profileForm.invalid" (click)="submitForm()">Submit</button>
+   
+      </form>
+</div>

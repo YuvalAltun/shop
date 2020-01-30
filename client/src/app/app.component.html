@@ -1,22 +1,11 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">
-    <img src="assets/dragon.jpg" width="30" height="30" alt="">
-  </a>
-
-  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <div class="contact">
-          <div class="upper">
-            yuval.alutn101@gmail.com
-          </div>
-          <div class="downer">
-            name
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
-</nav>
+<app-nav-bar [user]="user$ | async"></app-nav-bar>
 
 <router-outlet></router-outlet>
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

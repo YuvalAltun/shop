@@ -1,5 +1,4 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { LoginService } from '../../services/login.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
@@ -10,20 +9,24 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 export class Step1Component implements OnInit {
   profileForm: FormGroup;
   @Output() isValid = new EventEmitter<boolean>();
-  constructor(public loginService: LoginService, private fb: FormBuilder) { }
+  @Output() userData = new EventEmitter<any>();
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
     this.profileForm = this.fb.group({
-      id: ['', [Validators.required]],
-      email: ['', [Validators.required,  Validators.email]],
+      id: ['', [Validators.required, Validators.max(999999999)]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       passwordConfirmed: ['', [Validators.required]],
+    });
+
+    this.profileForm.valueChanges.subscribe(val => {
+      this.isValid.emit(false);
     });
   }
 
   next() {
-    this.loginService.setLoginData(this.profileForm.value);
-    this.isValid.emit(true);
+    this.userData.emit(this.profileForm.value);
   }
 
 }

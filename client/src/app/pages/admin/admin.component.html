@@ -1,1 +1,91 @@
-<p>admin works!</p>
+<div class="container-fluid">
+    <app-search-bar (search)="searchProducts($event)" (category)="addCategory($event)" [isAdmin]="true">
+    </app-search-bar>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-3 left-side">
+                <div class="row justify-content-end">
+                    <button (click)="newProduct()" class="btn btn-info btn-lg">
+                        <fa-icon [icon]="faPlus"></fa-icon>
+                    </button>
+                </div>
+                <div class="row">
+                    <form [formGroup]="profileForm">
+                        <div class="form-group">
+                            <label for="inputId">Id</label>
+                            <input type="number" formControlName="id" disabled required class="form-control"
+                                id="inputId">
+                            <div *ngIf="profileForm.controls.id.invalid && (profileForm.controls.id.dirty || profileForm.controls.id.touched)"
+                                class="alert alert-danger">
+
+                                <div *ngIf="profileForm.controls.id.errors.required">
+                                    id is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputName">Name</label>
+                            <input type="text" formControlName="name" required class="form-control" id="inputName"
+                                placeholder="Bamba">
+                            <div *ngIf="profileForm.controls.name.invalid && (profileForm.controls.name.dirty || profileForm.controls.name.touched)"
+                                class="alert alert-danger">
+
+                                <div *ngIf="profileForm.controls.name.errors.required">
+                                    name is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPrice">Price</label>
+                            <input type="number" formControlName="price" required class="form-control" id="inputPrice"
+                                placeholder="10">
+                            <div *ngIf="profileForm.controls.price.invalid && (profileForm.controls.price.dirty || profileForm.controls.price.touched)"
+                                class="alert alert-danger">
+
+                                <div *ngIf="profileForm.controls.price.errors.required">
+                                    price is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputImage">Image</label>
+                            <input type="text" formControlName="image" required class="form-control" id="inputImage"
+                                placeholder="">
+                            <div *ngIf="profileForm.controls.image.invalid && (profileForm.controls.image.dirty || profileForm.controls.image.touched)"
+                                class="alert alert-danger">
+
+                                <div *ngIf="profileForm.controls.image.errors.required">
+                                    image is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Select a category</label>
+                            <select class="form-control" id="category" formControlName="categories_id">
+                                <option [ngValue]="category.id"
+                                    *ngFor="let category of $categories | async as categories">
+                                    {{category.name}}</option>
+                            </select>
+                            <div *ngIf="profileForm.controls.categories_id.invalid && (profileForm.controls.categories_id.dirty || profileForm.controls.categories_id.touched)"
+                                class="alert alert-danger">
+
+                                <div *ngIf="profileForm.controls.categories_id.errors.required">
+                                    city is required.
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-info" [disabled]="profileForm.invalid"
+                            (click)="save()">Save</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="col-md-12">
+                    <app-button-filter (filterEvent)="filterProducts($event)" [categories]="$categories | async" [searchFlag]="searchFlag"></app-button-filter>
+                    <app-products-container (product)="chooseProduct($event)" [products]="$products | async"></app-products-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

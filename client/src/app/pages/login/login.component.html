@@ -1,10 +1,10 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <app-step1 (isValid)="setIsStep1Valid($event)"></app-step1>
+            <app-step1 (isValid)="stepOneChanged($event)" (userData)="stepOneCompleted($event)"></app-step1>
         </div>
         <div class="col">
-            <app-step2 *ngIf="step1Valid"></app-step2>
+            <app-step2 (finish)="stepTwoFinished($event)" *ngIf="step1Valid"></app-step2>
         </div>
     </div>
 </div>
