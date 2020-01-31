@@ -6,6 +6,7 @@ export interface CartState {
     loaded: boolean;
     loading: boolean;
     addInProgress: boolean;
+    lastCart: Cart;
 }
 
 export const initialCartState: CartState = {
@@ -13,12 +14,14 @@ export const initialCartState: CartState = {
     loaded: false,
     loading: false,
     addInProgress: false,
+    lastCart: null
 };
 
 export const getCart = (state: CartState) => state.data;
 export const getCartLoaded = (state: CartState) => state.loaded;
 export const getCartLoading = (state: CartState) => state.loading;
 export const getAddInProgress = (state: CartState) => state.addInProgress;
+export const getlastCart = (state: CartState) => state.lastCart;
 
 export function cartReducer(
     state: CartState = initialCartState,
@@ -126,6 +129,12 @@ export function cartReducer(
             return {
                 ...state,
                 addInProgress: false
+            };
+        }
+        case fromCart.DELETE_CART: {
+            return {
+                ...initialCartState,
+                lastCart: state.data
             };
         }
         default: {

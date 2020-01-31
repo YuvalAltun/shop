@@ -37,6 +37,7 @@ import { SidebarModule } from 'ng-sidebar';
 import { ItemsListComponent } from './components/items-list/items-list.component';
 import { OrderFormComponent } from './components/order-form/order-form.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { OrderViewComponent } from './pages/order-view/order-view.component';
 
 
 
@@ -58,7 +59,8 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
     ProductsContainerComponent,
     ItemsListComponent,
     OrderFormComponent,
-    NavBarComponent
+    NavBarComponent,
+    OrderViewComponent
   ],
   imports: [
     BrowserModule,

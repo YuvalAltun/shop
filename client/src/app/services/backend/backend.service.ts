@@ -192,6 +192,10 @@ export class BackendService {
     addOrder(data: {deliveryDate: string, city: string, street: string, creditCard: number}): Observable<any> {
       const url = `${this.backendurl}/orders/addOrder`;
       return this._httpClient.post<any>(url, data).pipe(
+        map( orderId => {
+          this.router.navigate(['/order-view']);
+          return orderId;
+        }),
         catchError(error => {
           this.toastrService.error('add  order failed ' + error.message);
           return throwError(error);

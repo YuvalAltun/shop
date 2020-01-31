@@ -21,6 +21,7 @@ export const REMOVE_CART_ITEM = '[Carts] Remove Cart Item';
 export const REMOVE_CART_ITEM_FAIL = '[Carts] Remove Cart Item Fail';
 export const REMOVE_CART_ITEM_SUCCESS = '[Carts] Remove Cart Item Success';
 
+export const DELETE_CART = '[Carts] Delete Cart';
 
 export class LoadCart implements Action {
     readonly type = LOAD_CART;
@@ -95,10 +96,15 @@ export class RemoveCartItemSuccess implements Action {
     constructor(public payload: number) {}
 }
 
+export class DeleteCart implements Action {
+    readonly type = DELETE_CART;
+}
+
 
 
 export type CartActions = LoadCart | LoadCartFail | LoadCartSuccess
                            | AddCart | AddCartFail | AddCartSuccess
                            | EditCartItem | EditCartItemFail | EditCartItemSuccess
                            | AddCartItem | AddCartItemFail | AddCartItemSuccess
-                           | RemoveCartItem | RemoveCartItemFail | RemoveCartItemSuccess;
+                           | RemoveCartItem | RemoveCartItemFail | RemoveCartItemSuccess
+                           | DeleteCart;

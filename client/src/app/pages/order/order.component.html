@@ -4,7 +4,7 @@
             <app-items-list  [cart]="$cart | async" [isEditable]="false"></app-items-list>
         </div>
         <div class="col-md-6">
-            <app-order-form (order)="placeOrder()"></app-order-form>
+            <app-order-form (order)="placeOrder($event)"></app-order-form>
         </div>
     </div>
 </div>

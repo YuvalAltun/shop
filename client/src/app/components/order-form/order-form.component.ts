@@ -12,7 +12,7 @@ export class OrderFormComponent implements OnInit {
   @Input() user: Observable<User>;
   profileForm = this.fb.group({
     creditCard: ['', [Validators.required]],
-    shippingDate: [null, [Validators.pattern('[0-9]{4}-[0-9]{2}-[0-9]{2}')]],
+    deliveryDate: [null, [Validators.required]],
     city: ['', [Validators.required]],
     street: ['', [Validators.required]],
   });
@@ -23,7 +23,8 @@ export class OrderFormComponent implements OnInit {
   }
 
   submitForm() {
-    this.order.emit(this.profileForm.value);
+    const deliveryDate = this.profileForm.value.deliveryDate;
+    this.order.emit({...this.profileForm.value, deliveryDate: `${deliveryDate.year}-${deliveryDate.month}-${deliveryDate.day}`});
   }
 
 }

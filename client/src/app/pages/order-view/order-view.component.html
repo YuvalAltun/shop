@@ -1,0 +1,9 @@
+<div class="jumbotron">
+    <h1 class="display-4">Thx for buying with us</h1>
+    <p class="lead">this are the order details</p>
+    <hr class="my-4">
+
+    <app-items-list  [cart]="$cart | async" [isEditable]="false"></app-items-list>
+    <a class="btn btn-primary btn-lg" routerLink="/" href="#" role="button">Back To Home</a>
+    <a class="btn btn-info btn-lg" href="#" routerLink="/" role="button">Download Recipt</a>
+  </div>

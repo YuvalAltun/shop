@@ -7,6 +7,8 @@ import { OrderComponent } from './pages/order/order.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { IsAdminInGuard } from './guards/isAdmin.guard';
 import { IsLogedInGuard } from './guards/isLogedIn.guard';
+import { OrderViewComponent } from './pages/order-view/order-view.component';
+
 
 
 const routes: Routes = [
@@ -15,6 +17,7 @@ const routes: Routes = [
   {path: 'shopping', canActivate: [IsLogedInGuard], component: ShoppingComponent},
   {path: 'order', component: OrderComponent},
   {path: 'admin', canActivate: [IsAdminInGuard], component: AdminComponent},
+  {path: 'order-view', canActivate: [IsLogedInGuard], component: OrderViewComponent},
   {path: '**', component: HomeComponent}
 ];
 

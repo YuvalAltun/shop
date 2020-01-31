@@ -44,11 +44,11 @@ exports.addOrder = async (req, res, next) => {
             return next(createError(400, 'The choosen date is too busy'));
         const priceResult = await db.query(`SELECT SUM(price * amount) AS price FROM items where carts_id = ${cartId}`);
         sql = `INSERT INTO orders (price, city, street, deliveryDate, date, creditCardNumber, users_id, carts_id)
-         VALUES (${priceResult[0].price}, '${city}', '${street}', '${deliveryDate}', '${new Date().toISOString()}', '${creditCard}', ${userId}, ${cartId})`;
+         VALUES (${priceResult[0].price}, '${city}', '${street}', '${deliveryDate}', '${new Date().toISOString().split('T')[0]}', '${creditCard}', ${userId}, ${cartId})`;
          const insertedOrder = await db.query(sql);
         sql = `UPDATE carts set status = 'close' WHERE id = ${cartId}`
         await db.query(sql);
-        return res.status(201).json(priceResult.insertId);
+        return res.status(201).json(insertedOrder.insertId);
     } catch(error) {
         return next(createError(400, error.message));
     }

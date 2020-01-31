@@ -50,7 +50,7 @@ export class ShoppingComponent implements OnInit, AfterViewInit {
     this.$products = this.store.select(fromStore.getProducts);
     this.$cart = this.store.select(fromStore.getCart).pipe(
       map(cart => {
-        const totalPrice = cart.items.reduce((acc, cur) => acc += cur.amount * cur.price, 0);
+        const totalPrice = cart && cart.items && cart.items.length ? cart.items.reduce((acc, cur) => acc += cur.amount * cur.price, 0) : 0;
         return {...cart, totalPrice};
       })
     );

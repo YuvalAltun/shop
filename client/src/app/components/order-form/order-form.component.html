@@ -44,7 +44,7 @@
         readonly>
             <div *ngIf="profileForm.controls.deliveryDate.invalid && (profileForm.controls.deliveryDate.dirty || profileForm.controls.deliveryDate.touched)" class="alert alert-danger">
 
-                <div *ngIf="profileForm.controls.name.errors.required">
+                <div *ngIf="profileForm.controls.deliveryDate.errors.required">
                     delivery date is required.
                 </div>
             </div>
