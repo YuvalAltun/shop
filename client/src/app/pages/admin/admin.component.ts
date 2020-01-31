@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import * as fromStore from './../../store';
 import * as fromActions from './../../store/actions';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin',
@@ -23,7 +24,7 @@ export class AdminComponent implements OnInit {
   $categories: Observable<Category[]>;
   searchFlag = {status: false};
 
-  constructor(private fb: FormBuilder, private store: Store<fromStore.State>) { }
+  constructor(private fb: FormBuilder, private store: Store<fromStore.State>, private http: HttpClient) { }
 
   ngOnInit() {
     // TODO: Remove
@@ -44,7 +45,16 @@ export class AdminComponent implements OnInit {
 
   }
 
-
+  onFileSelected(event) {
+    const selectedFile = event.target.files[0] as File;
+    const fd = new FormData();
+    fd.append('image', selectedFile, selectedFile.name);
+    this.http.post('http://localhost:3000/products/uploadPicture', fd).subscribe(
+      success => this.profileForm.patchValue({
+        image: success
+      })
+    );
+  }
 
   addCategory(name: string) {
     this.store.dispatch(new fromActions.AddCategories(name));
