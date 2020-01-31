@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild, Renderer2 } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild, Renderer2, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Product, Category, Cart } from 'src/app/services/backend/backend.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./shopping.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ShoppingComponent implements OnInit {
+export class ShoppingComponent implements OnInit, AfterViewInit {
   @ViewChild('content', {static: false}) private content;
   @ViewChild('main', {static: false}) private main;
   @ViewChild('mySidebar', {static: false}) private mySidebar;
@@ -45,6 +45,7 @@ export class ShoppingComponent implements OnInit {
     });
 
 
+
     this.$categories = this.store.select(fromStore.getCategories);
     this.$products = this.store.select(fromStore.getProducts);
     this.$cart = this.store.select(fromStore.getCart).pipe(
@@ -55,6 +56,10 @@ export class ShoppingComponent implements OnInit {
     );
 
 
+  }
+
+  ngAfterViewInit(): void {
+    this.toggleSidebar();
   }
 
   open(content): void {
