@@ -2,6 +2,8 @@ const router = require('express')();
 const productController = require('../controllers/product.controller');
 const authMiddlware = require('./../middlewares/jwt.middelware');
 const isAdminMiddlware = require('./../middlewares/isAdmin.middelware');
+const multer = require('multer');
+const upload = multer({dest:'uploads/'})
 
 
 
@@ -15,6 +17,6 @@ router.post('/addProduct', authMiddlware.checkUserAuthentication, isAdminMiddlwa
 
 router.post('/modifyProduct', authMiddlware.checkUserAuthentication, isAdminMiddlware.isAdmin, productController.editProduct);
 
-router.post('/uploadPicture', authMiddlware.checkUserAuthentication, isAdminMiddlware.isAdmin, productController.uploadPicture);
+router.post('/uploadPicture', authMiddlware.checkUserAuthentication, isAdminMiddlware.isAdmin, upload.single('image'), productController.uploadPicture);
 
 module.exports = router;

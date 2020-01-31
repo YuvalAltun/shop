@@ -78,15 +78,5 @@ exports.editProduct = async (req, res, next) => {
 };
 
 exports.uploadPicture = async (req, res, next) => {
-    const form = new formidable.IncomingForm();
-    form.parse(req, function (err, fields, files) {
-        const oldpath = files.filetoupload.path;
-        var id = crypto.randomBytes(20).toString('hex');
-        const newpath = path.join(__dirname, `upload/images${id}`);
-        fs.rename(oldpath, newpath, function (err) {
-            if (err) throw err;
-            return res.status(200).json(newpath);
-
-        });
-    })
+    return res.status(200).json(`http://localhost:3000/${req.file.filename}`);
 }
